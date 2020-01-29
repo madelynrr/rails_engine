@@ -33,11 +33,14 @@ describe "Merchants API" do
     get "/api/v1/merchants/#{merchant_1.id}/items"
 
     items = JSON.parse(response.body)['data']
-    require "pry"; binding.pry
 
     expect(response).to be_successful
     expect(items.count).to eq(3)
-
-
+    item_1 = Item.find(items[0]['attributes']['id'])
+    expect(item_1.merchant).to eq(merchant_1)
+    item_2 = Item.find(items[1]['attributes']['id'])
+    expect(item_2.merchant).to eq(merchant_1)
+    item_3 = Item.find(items[2]['attributes']['id'])
+    expect(item_3.merchant).to eq(merchant_1)
   end
 end
