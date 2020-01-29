@@ -6,9 +6,21 @@ describe "Merchants API" do
 
     get "/api/v1/merchants"
 
-    expect(response).to be_successful
+    merchants = JSON.parse(response.body)['data']
 
-    merchants = JSON.parse(response.body)['data']['attributes']
-    # expect(merchants.count).to eq(3)
+    expect(response).to be_successful
+    expect(merchants.count).to eq(3)
+    expect(merchants.first['type']).to eq("merchant")
+  end
+
+  it "sends a single merchant by its id" do
+    id = create(:merchant).id
+
+    get "/api/v1/merchants/#{id}"
+
+    item = JSON.parse(response.body)['data']['attributes']
+
+    expect(response).to be_successful
+    expect(item["id"]).to eq(id)
   end
 end
