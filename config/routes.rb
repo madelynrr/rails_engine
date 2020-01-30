@@ -6,7 +6,7 @@ Rails.application.routes.draw do
         resources :items, only: [:index]
       end
       resources :items, only: [:index, :show]
-      resources :customers, only: [:index]
+      resources :customers, only: [:index, :show]
     end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
