@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       end
       resources :items, only: [:index, :show]
       resources :customers, only: [:index, :show]
+      resources :invoices, only: [:index]
     end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
