@@ -23,7 +23,7 @@ describe "Items API" do
 
     get "/api/v1/items/#{item_1.id}"
 
-    item = JSON.parse(response.body)
+    item = JSON.parse(response.body)['data']['attributes']
 
     expect(response).to be_successful
     expect(item["id"]).to eq(item_1.id)
