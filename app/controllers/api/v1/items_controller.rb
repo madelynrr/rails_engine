@@ -9,4 +9,8 @@ class Api::V1::ItemsController < ApplicationController
     end
   end
 
+  def show
+    require "pry"; binding.pry
+  end
+
 end
