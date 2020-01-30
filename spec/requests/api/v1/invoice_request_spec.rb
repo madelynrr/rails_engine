@@ -12,8 +12,8 @@ describe "Invoice API" do
 
     expect(response).to be_successful
     expect(invoices.count).to eq(3)
-    expect(invoies[0]['type']).to eq('invoice')
-    expect(invoies[1]['type']).to eq('invoice')
-    expect(invoies[2]['type']).to eq('invoice')
+    expect(invoices[0]['type']).to eq('invoice')
+    expect(invoices[1]['type']).to eq('invoice')
+    expect(invoices[2]['type']).to eq('invoice')
   end
 end
