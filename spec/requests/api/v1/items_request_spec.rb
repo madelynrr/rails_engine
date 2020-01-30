@@ -18,7 +18,7 @@ describe "Items API" do
 
   it "sends a single item by its id" do
     merchant = create(:merchant)
-    item_1 = create(:item, merchant_id: merchant.id)
+    item_1 = create(:item, merchant_id: merchant.id, unit_price: 12345)
     create(:item, merchant_id: merchant.id)
 
     get "/api/v1/items/#{item_1.id}"
@@ -27,5 +27,6 @@ describe "Items API" do
 
     expect(response).to be_successful
     expect(item["id"]).to eq(item_1.id)
+    expect(item["unit_price"]).to eq("123.45")
   end
 end
