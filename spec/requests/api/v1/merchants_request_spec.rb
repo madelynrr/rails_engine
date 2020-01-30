@@ -5,7 +5,6 @@ describe "Merchants API" do
     create_list(:merchant, 3)
 
     get "/api/v1/merchants"
-
     merchants = JSON.parse(response.body)['data']
 
     expect(response).to be_successful
@@ -18,10 +17,10 @@ describe "Merchants API" do
 
     get "/api/v1/merchants/#{id}"
 
-    item = JSON.parse(response.body)['data']['attributes']
+    merchant = JSON.parse(response.body)['data']['attributes']
 
     expect(response).to be_successful
-    expect(item["id"]).to eq(id)
+    expect(merchant["id"]).to eq(id)
   end
 
   it "can return list of items belonging to a merchant" do
