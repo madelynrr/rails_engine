@@ -5,4 +5,8 @@ class Api::V1::InvoiceItemsController < ApplicationController
     render json: InvoiceItemSerializer.new(InvoiceItem.all)
   end
 
+  def show
+    
+  end
+
 end
