@@ -26,9 +26,9 @@ describe "Invoice Items API" do
   it "can return on invoice item by its id" do
     merchant = create(:merchant)
     customer = create(:customer)
-    item = create(:item, merchant_id: merchant.id)
+    item = create(:item, merchant_id: merchant.id, unit_price: 12345)
     invoice = create(:invoice, merchant_id: merchant.id, customer_id: customer.id)
-    invoice_item_1 = create(:invoice_item, invoice_id: invoice.id, item_id: item.id)
+    invoice_item_1 = create(:invoice_item, invoice_id: invoice.id, item_id: item.id, unit_price: item.unit_price)
 
     get "/api/v1/invoice_items/#{invoice_item_1.id}"
 
@@ -36,5 +36,6 @@ describe "Invoice Items API" do
 
     expect(response).to be_successful
     expect(invoice_item['id']).to eq(invoice_item_1.id)
+    expect(invoice_item['unit_price']).to eq("123.45")
   end
 end
