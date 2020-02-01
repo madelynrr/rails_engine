@@ -12,6 +12,30 @@ describe "Customer API" do
     expect(customer['id']).to eq(customer_1.id)
   end
 
+  it "can find first instance by first name" do
+    customer_1 = create(:customer, first_name: "Bob")
+    create_list(:customer, 3)
+
+    get "/api/v1/customers/find?first_name=#{customer_1.first_name}"
+
+    customer = JSON.parse(response.body)['data']['attributes']
+
+    expect(response).to be_successful
+    expect(customer['id']).to eq(customer_1.id)
+  end
+
+  it "can find first instance by last name" do
+    customer_1 = create(:customer, last_name: "Smith")
+    create_list(:customer, 3)
+
+    get "/api/v1/customers/find?last_name=#{customer_1.last_name}"
+
+    customer = JSON.parse(response.body)['data']['attributes']
+
+    expect(response).to be_successful
+    expect(customer['id']).to eq(customer_1.id)
+  end
+
   it "can find all customers by id" do
     customer_1 = create(:customer)
     create_list = create_list(:customer, 3)
@@ -23,6 +47,5 @@ describe "Customer API" do
     expect(response).to be_successful
     expect(customer['id']).to eq(customer_1.id)
   end
-
 
 end
