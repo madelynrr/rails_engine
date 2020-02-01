@@ -18,7 +18,7 @@ describe "Customer API" do
 
     get "/api/v1/customers/find_all?id=#{customer_1.id}"
 
-    customer = JSON.parse(response.body)['data']['attributes']
+    customer = JSON.parse(response.body)['data'].first['attributes']
 
     expect(response).to be_successful
     expect(customer['id']).to eq(customer_1.id)
