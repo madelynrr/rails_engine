@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       end
 
       namespace :merchants do
-        get '/most_revenue', to: 'merchants#most_revenue'
+        get '/most_revenue', to: 'merchants#index'
       end
 
       resources :merchants, only: [:index, :show] do
@@ -28,7 +28,7 @@ Rails.application.routes.draw do
       resources :invoices, only: [:index, :show]
 
       resources :transactions, only: [:index, :show]
-      
+
       resources :invoice_items, only: [:index, :show]
 
 
