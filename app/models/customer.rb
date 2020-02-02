@@ -9,7 +9,7 @@ class Customer < ApplicationRecord
     x = Merchant.joins(invoices: :transactions)
     .select("merchants.*, COUNT(transactions.id) AS total_transactions")
     .group("merchants.id")
-    .where(transactions: {result: "success"})
+    .merge(Transaction.successful)
     .where(invoices: {customer_id: "#{self.id}"})
     .order(total_transactions: :desc)
     .limit(1)
