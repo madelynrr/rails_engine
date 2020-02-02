@@ -6,7 +6,7 @@ class Customer < ApplicationRecord
   has_many :transactions, through: :invoices
 
   def fav_merchant
-    x = Merchant.joins(invoices: :transactions)
+    Merchant.joins(invoices: :transactions)
     .select("merchants.*, COUNT(transactions.id) AS total_transactions")
     .group("merchants.id")
     .merge(Transaction.successful)
