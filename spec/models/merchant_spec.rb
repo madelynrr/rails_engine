@@ -52,5 +52,23 @@ RSpec.describe Merchant, type: :model do
       expect(top_merchants[0].id).to eq(merchant_1.id)
       expect(top_merchants[1].id).to eq(merchant_2.id)
     end
+
+    it ".fav_customer" do
+      customer_1 = create(:customer)
+      customer_2 = create(:customer)
+      merchant_1 = create(:merchant)
+      invoice_1 = create(:invoice, customer_id: customer_1.id, merchant_id: merchant_1.id)
+      invoice_2 = create(:invoice, customer_id: customer_1.id, merchant_id: merchant_1.id)
+      invoice_3 = create(:invoice, customer_id: customer_2.id, merchant_id: merchant_1.id)
+      invoice_4 = create(:invoice, customer_id: customer_2.id, merchant_id: merchant_1.id)
+      invoice_5 = create(:invoice, customer_id: customer_2.id, merchant_id: merchant_1.id)
+      transaction_1 = create(:transaction, invoice_id: invoice_1.id, result: "success")
+      transaction_2 = create(:transaction, invoice_id: invoice_2.id, result: "success")
+      transaction_3 = create(:transaction, invoice_id: invoice_3.id, result: "success")
+      transaction_4 = create(:transaction, invoice_id: invoice_4.id, result: "failed")
+      transaction_5 = create(:transaction, invoice_id: invoice_5.id, result: "failed")
+
+      expect(merchant_1.fav_customer.id).to eq(customer_1.id)
+    end
   end
 end
