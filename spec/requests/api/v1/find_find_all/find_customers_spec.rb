@@ -36,6 +36,30 @@ describe "Customer API" do
     expect(customer['id']).to eq(customer_1.id)
   end
 
+  it "can find first instance by created_at" do
+    customer_1 = create(:customer, created_at: "2020-02-01 23:36:19 UTC")
+    create_list(:customer, 3)
+
+    get "/api/v1/customers/find?created_at='2020-02-01 23:36:19 UTC'"
+
+    customer = JSON.parse(response.body)['data']['attributes']
+
+    expect(response).to be_successful
+    expect(customer['id']).to eq(customer_1.id)
+  end
+
+  it "can find first instance by updated_at" do
+    customer_1 = create(:customer, updated_at: "2020-02-01 23:36:19 UTC")
+    create_list(:customer, 3)
+
+    get "/api/v1/customers/find?updated_at='2020-02-01 23:36:19 UTC'"
+
+    customer = JSON.parse(response.body)['data']['attributes']
+
+    expect(response).to be_successful
+    expect(customer['id']).to eq(customer_1.id)
+  end
+
   it "can find all customers by id" do
     customer_1 = create(:customer)
     create_list = create_list(:customer, 3)
