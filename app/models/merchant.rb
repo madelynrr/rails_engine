@@ -5,4 +5,8 @@ class Merchant < ApplicationRecord
   has_many :invoice_items, through: :invoices
   has_many :transactions, through: :invoices
 
+  def top_by_revenue
+    
+  end
+
 end
