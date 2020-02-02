@@ -74,4 +74,30 @@ describe "Business Intelligence API" do
     expect(top_merchants[0]['attributes']['id']).to eq(merchant_1.id)
     expect(top_merchants[1]['attributes']['id']).to eq(merchant_2.id)
   end
+
+  it "returns total revenue for a given date across all merchants" do
+    skip
+    customer_1 = create(:customer)
+    merchant_1 = create(:merchant)
+    merchant_2 = create(:merchant)
+    merchant_3 = create(:merchant)
+    item_1 = create(:item, merchant_id: merchant_1.id)
+    item_2 = create(:item, merchant_id: merchant_2.id)
+    item_3 = create(:item, merchant_id: merchant_3.id)
+    invoice_1 = create(:invoice, customer_id: customer_1.id, merchant_id: merchant_1.id)
+    invoice_2 = create(:invoice, customer_id: customer_1.id, merchant_id: merchant_2.id)
+    invoice_3 = create(:invoice, customer_id: customer_1.id, merchant_id: merchant_3.id)
+    invoice_item_1 = create(:invoice_item, item_id: item_1.id, invoice_id: invoice_1.id, unit_price: 1, quantity: 2)
+    invoice_item_2 = create(:invoice_item, item_id: item_2.id, invoice_id: invoice_2.id, unit_price: 1, quantity: 3)
+    invoice_item_3 = create(:invoice_item, item_id: item_3.id, invoice_id: invoice_3.id, unit_price: 1, quantity: 4)
+    transaction_1 = create(:transaction, invoice_id: invoice_1.id, result: "success")
+    transaction_1 = create(:transaction, invoice_id: invoice_2.id, result: "success")
+    transaction_1 = create(:transaction, invoice_id: invoice_3.id, result: "failed")
+
+    get "/api/v1/merchants/revenue?date="
+
+
+
+
+  end
 end
