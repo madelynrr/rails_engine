@@ -14,4 +14,8 @@ class Merchant < ApplicationRecord
     .limit(quantity)
   end
 
+  def fav_customer
+    
+  end
+
 end
