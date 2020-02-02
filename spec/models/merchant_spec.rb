@@ -46,11 +46,11 @@ RSpec.describe Merchant, type: :model do
       transaction_8 = create(:transaction, invoice_id: invoice_8.id, result: "failed")
 
       quantity = 2
-      merchants = Merchant.top_by_revenue(quantity)
+      top_merchants = Merchant.top_by_revenue(quantity)
 
-      expect(merchants.count).to eq(2)
-      expect(merchants[0]['attributes']['id']).to eq(merchants_1.id)
-      expect(merchants[1]['attributes']['id']).to eq(merchants_2.id)
+      expect(top_merchants.length).to eq(2)
+      expect(top_merchants[0].id).to eq(merchant_1.id)
+      expect(top_merchants[1].id).to eq(merchant_2.id)
     end
   end
 end
