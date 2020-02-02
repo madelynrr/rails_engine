@@ -26,4 +26,24 @@ describe "Customer API" do
     expect(customer['first_name']).to eq(customer_1.first_name)
     expect(customer['last_name']).to eq(customer_1.last_name)
   end
+
+  it "returns list of invoices associated with a customer" do
+    customer_1 = create(:customer)
+    customer_2 = create(:customer)
+    merchant_1 = create(:merchant)
+    merchant_2 = create(:merchant)
+    invoice_1 = create(:invoice, customer_id: customer_1.id, merchant_id: merchant_1.id)
+    invoice_2 = create(:invoice, customer_id: customer_1.id, merchant_id: merchant_1.id)
+    invoice_3 = create(:invoice, customer_id: customer_2.id, merchant_id: merchant_2.id)
+    invoice_4 = create(:invoice, customer_id: customer_2.id, merchant_id: merchant_2.id)
+
+    get "/api/v1/customers/#{customer_1.id}/invoices"
+
+    invoices = JSON.parse(response.body)['data']
+
+    expect(response).to be_successful
+    expect(invoices.count).to eq(2)
+    expect(invoices[0]['attributes']['customer_id']).to eq(customer_1.id)
+    expect(invoices[1]['attributes']['customer_id']).to eq(customer_1.id)
+  end
 end
