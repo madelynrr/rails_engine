@@ -11,6 +11,7 @@ RSpec.describe Invoice, type: :model do
 
   describe "class methods" do
     it ".total_revenue by date" do
+      skip
       customer_1 = create(:customer)
       merchant_1 = create(:merchant)
       merchant_2 = create(:merchant)
@@ -30,7 +31,7 @@ RSpec.describe Invoice, type: :model do
       transaction_3 = create(:transaction, invoice_id: invoice_2.id, result: "success")
       transaction_4 = create(:transaction, invoice_id: invoice_3.id, result: "failed")
 
-      date = "2020-02-01 23:36:19 UTC"
+      date = invoice_2.created_at
 
       expect(Invoice.total_revenue(date)).to eq(7.0)
     end
