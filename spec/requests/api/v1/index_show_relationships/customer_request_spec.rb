@@ -67,9 +67,8 @@ describe "Customer API" do
 
     expect(response).to be_successful
     expect(transactions.count).to be(3)
-
-    # expect(transactions[0]['attributes']['customer_id']).to eq(customer_1.id)
-    # expect(transactions[1]['attributes']['customer_id']).to eq(customer_1.id)
-    # expect(transactions[2]['attributes']['customer_id']).to eq(customer_1.id)
+    expect(transactions[0]['type']).to eq("transaction")
+    expect(transactions[1]['type']).to eq("transaction")
+    expect(transactions[2]['type']).to eq("transaction")
   end
 end
