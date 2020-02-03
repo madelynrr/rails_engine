@@ -10,7 +10,7 @@ class Api::V1::InvoiceItems::FindInvoiceItemsController < ApplicationController
     elsif params[:quantity]
       render json: InvoiceItemSerializer.new(InvoiceItem.find_by(quantity: params[:quantity]))
     elsif params[:unit_price]
-      price = (params[:unit_price].to_f * 100).to_i
+      price = (params[:unit_price].to_f * 100).to_s
       render json: InvoiceItemSerializer.new(InvoiceItem.find_by(unit_price: price))
     elsif params[:created_at]
       render json: InvoiceItemSerializer.new(InvoiceItem.find_by(created_at: params[:created_at]))
