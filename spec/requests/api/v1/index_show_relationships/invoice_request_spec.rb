@@ -71,4 +71,28 @@ describe "Invoice API" do
     expect(invoice_items[1]['attributes']['invoice_id']).to eq(invoice_1.id)
     expect(invoice_items[2]['attributes']['invoice_id']).to eq(invoice_1.id)
   end
+
+  it "can return items by invoice" do
+    customer = create(:customer)
+    merchant_1 = create(:merchant)
+    merchant_2 = create(:merchant)
+    item_1 = create(:item, merchant_id: merchant_1.id)
+    item_2 = create(:item, merchant_id: merchant_1.id)
+    item_3= create(:item, merchant_id: merchant_2.id)
+    invoice_1 = create(:invoice, customer_id: customer.id, merchant_id: merchant_1.id)
+    invoice_2 = create(:invoice, customer_id: customer.id, merchant_id: merchant_2.id)
+    invoice_item_1 = create(:invoice_item, item_id: item_1.id, invoice_id: invoice_1.id)
+    invoice_item_2 = create(:invoice_item, item_id: item_3.id, invoice_id: invoice_1.id)
+    invoice_item_3 = create(:invoice_item, item_id: item_1.id, invoice_id: invoice_1.id)
+    invoice_item_4 = create(:invoice_item, item_id: item_2.id, invoice_id: invoice_2.id)
+
+    get "/api/v1/invoices/#{invoice_1.id}/items"
+
+    items = JSON.parse(response.body)['data']
+
+    expect(response).to be_successful
+    expect(items.count).to eq(2)
+    expect(items[0]['attributes']['id']).to eq(item_1.id)
+    expect(items[1]['attributes']['id']).to eq(item_3.id)
+  end
 end
