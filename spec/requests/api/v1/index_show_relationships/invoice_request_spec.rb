@@ -95,4 +95,19 @@ describe "Invoice API" do
     expect(items[0]['attributes']['id']).to eq(item_1.id)
     expect(items[1]['attributes']['id']).to eq(item_3.id)
   end
+
+  it "can return customer for an invoice" do
+    customer_1 = create(:customer)
+    customer_2 = create(:customer)
+    merchant = create(:merchant)
+    invoice_1 = create(:invoice, customer_id: customer_1.id, merchant_id: merchant.id)
+    invoice_2 = create(:invoice, customer_id: customer_2.id, merchant_id: merchant.id)
+
+    get "/api/v1/invoices/#{invoice_1.id}/customer"
+
+    customer = JSON.parse(response.body)['data']['attributes']
+
+    expect(response).to be_successful
+    expect(customer['id']).to eq(customer_1.id)
+  end
 end
