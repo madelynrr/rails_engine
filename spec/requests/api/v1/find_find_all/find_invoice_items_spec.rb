@@ -105,4 +105,109 @@ describe "Invoice Items API" do
     expect(response).to be_successful
     expect(invoice_item['id']).to eq(invoice_item_1.id)
   end
+
+  it "can find all customers by id" do
+    customer = create(:customer)
+    merchant = create(:merchant)
+    item_1 = create(:item, merchant_id: merchant.id)
+    invoice_1 = create(:invoice, customer_id: customer.id, merchant_id: merchant.id)
+    invoice_item_1 = create(:invoice_item, item_id: item_1.id, invoice_id: invoice_1.id, quantity: 3, unit_price: 12345, created_at: "2020-02-01 23:36:19 UTC")
+
+    get "/api/v1/invoice_items/find_all?id=#{invoice_item_1.id}"
+
+    invoice_item = JSON.parse(response.body)['data'].first['attributes']
+
+    expect(response).to be_successful
+    expect(invoice_item['id']).to eq(invoice_item_1.id)
+  end
+
+  it "can find all instances by item id" do
+    customer = create(:customer)
+    merchant = create(:merchant)
+    item_1 = create(:item, merchant_id: merchant.id)
+    invoice_1 = create(:invoice, customer_id: customer.id, merchant_id: merchant.id)
+    invoice_item_1 = create(:invoice_item, item_id: item_1.id, invoice_id: invoice_1.id, quantity: 3, unit_price: 12345, created_at: "2020-02-01 23:36:19 UTC")
+
+    get "/api/v1/invoice_items/find_all?item_id=#{invoice_item_1.item_id}"
+
+    invoice_item = JSON.parse(response.body)['data'].first['attributes']
+
+    expect(response).to be_successful
+    expect(invoice_item['id']).to eq(invoice_item_1.id)
+  end
+
+  it "can find all instances by invoice id" do
+    customer = create(:customer)
+    merchant = create(:merchant)
+    item_1 = create(:item, merchant_id: merchant.id)
+    invoice_1 = create(:invoice, customer_id: customer.id, merchant_id: merchant.id)
+    invoice_item_1 = create(:invoice_item, item_id: item_1.id, invoice_id: invoice_1.id, quantity: 3, unit_price: 12345, created_at: "2020-02-01 23:36:19 UTC")
+
+    get "/api/v1/invoice_items/find_all?invoice_id=#{invoice_item_1.invoice_id}"
+
+    invoice_item = JSON.parse(response.body)['data'].first['attributes']
+
+    expect(response).to be_successful
+    expect(invoice_item['id']).to eq(invoice_item_1.id)
+  end
+
+  it "can find all instances by quantity" do
+    customer = create(:customer)
+    merchant = create(:merchant)
+    item_1 = create(:item, merchant_id: merchant.id)
+    invoice_1 = create(:invoice, customer_id: customer.id, merchant_id: merchant.id)
+    invoice_item_1 = create(:invoice_item, item_id: item_1.id, invoice_id: invoice_1.id, quantity: 3, unit_price: 12345, created_at: "2020-02-01 23:36:19 UTC")
+
+    get "/api/v1/invoice_items/find_all?quantity=#{invoice_item_1.quantity}"
+
+    invoice_item = JSON.parse(response.body)['data'].first['attributes']
+
+    expect(response).to be_successful
+    expect(invoice_item['id']).to eq(invoice_item_1.id)
+  end
+
+  it "can find all instances by unit price" do
+    customer = create(:customer)
+    merchant = create(:merchant)
+    item_1 = create(:item, merchant_id: merchant.id)
+    invoice_1 = create(:invoice, customer_id: customer.id, merchant_id: merchant.id)
+    invoice_item_1 = create(:invoice_item, item_id: item_1.id, invoice_id: invoice_1.id, quantity: 3, unit_price: 12345, created_at: "2020-02-01 23:36:19 UTC")
+
+    get "/api/v1/invoice_items/find_all?unit_price=123.45"
+
+    invoice_item = JSON.parse(response.body)['data'].first['attributes']
+
+    expect(response).to be_successful
+    expect(invoice_item['id']).to eq(invoice_item_1.id)
+  end
+
+  it "can find all instances by created at" do
+    customer = create(:customer)
+    merchant = create(:merchant)
+    item_1 = create(:item, merchant_id: merchant.id)
+    invoice_1 = create(:invoice, customer_id: customer.id, merchant_id: merchant.id)
+    invoice_item_1 = create(:invoice_item, item_id: item_1.id, invoice_id: invoice_1.id, quantity: 3, unit_price: 12345, created_at: "2020-02-01 23:36:19 UTC")
+
+    get "/api/v1/invoice_items/find_all?created_at='2020-02-01 23:36:19 UTC'"
+
+    invoice_item = JSON.parse(response.body)['data'].first['attributes']
+
+    expect(response).to be_successful
+    expect(invoice_item['id']).to eq(invoice_item_1.id)
+  end
+
+  it "can find all instances by updated at" do
+    customer = create(:customer)
+    merchant = create(:merchant)
+    item_1 = create(:item, merchant_id: merchant.id)
+    invoice_1 = create(:invoice, customer_id: customer.id, merchant_id: merchant.id)
+    invoice_item_1 = create(:invoice_item, item_id: item_1.id, invoice_id: invoice_1.id, quantity: 3, unit_price: 12345, updated_at: "2020-02-01 23:36:19 UTC")
+
+    get "/api/v1/invoice_items/find_all?updated_at='2020-02-01 23:36:19 UTC'"
+
+    invoice_item = JSON.parse(response.body)['data'].first['attributes']
+
+    expect(response).to be_successful
+    expect(invoice_item['id']).to eq(invoice_item_1.id)
+  end
 end
