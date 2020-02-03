@@ -28,7 +28,9 @@ Rails.application.routes.draw do
         get 'favorite_merchant', to: 'favorite_merchant#show'
       end
 
-      resources :invoices, only: [:index, :show]
+      resources :invoices, only: [:index, :show] do
+        resources :transactions, only: [:index]
+      end
 
       resources :transactions, only: [:index, :show]
 
