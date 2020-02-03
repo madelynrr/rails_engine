@@ -8,7 +8,6 @@ class Api::V1::Items::FindItemsController < ApplicationController
     elsif params[:description]
       render json: ItemSerializer.new(Item.find_by(description: params[:description]))
     elsif params[:unit_price]
-      # price = params[:unit_price].to_i
       render json: ItemSerializer.new(Item.find_by(unit_price: params[:unit_price]))
     elsif params[:merchant_id]
       render json: ItemSerializer.new(Item.find_by(merchant_id: params[:merchant_id]))
