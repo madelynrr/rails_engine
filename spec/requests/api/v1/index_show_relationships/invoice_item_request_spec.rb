@@ -38,4 +38,21 @@ describe "Invoice Items API" do
     expect(invoice_item['id']).to eq(invoice_item_1.id)
     expect(invoice_item['unit_price']).to eq("123.45")
   end
+
+  it "can return invoice for an invoice item" do
+    customer = create(:customer)
+    merchant = create(:merchant)
+    item = create(:item, merchant_id: merchant.id)
+    invoice_1 = create(:invoice, customer_id: customer.id, merchant_id: merchant.id)
+    invoice_2 = create(:invoice, customer_id: customer.id, merchant_id: merchant.id)
+    invoice_item_1 = create(:invoice_item, item_id: item.id, invoice_id: invoice_1.id)
+    invoice_item_2 = create(:invoice_item, item_id: item.id, invoice_id: invoice_2.id)
+
+    get "/api/v1/invoice_items/#{invoice_item_1.id}/invoice"
+
+    invoice = JSON.parse(response.body)['data']['attributes']
+
+    expect(response).to be_successful
+    expect(invoice['id']).to eq(invoice_1.id)
+  end
 end
