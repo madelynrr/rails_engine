@@ -49,4 +49,18 @@ describe "Items API" do
     expect(invoice_items[0]['attributes']['id']).to eq(invoice_item_1.id)
     expect(invoice_items[1]['attributes']['id']).to eq(invoice_item_2.id)
   end
+
+  it "can return the merchant associated with an item" do
+    merchant_1 = create(:merchant)
+    merchant_2 = create(:merchant)
+    item_1 = create(:item, merchant_id: merchant_1.id)
+    item_2 = create(:item, merchant_id: merchant_2.id)
+
+    get "/api/v1/items/#{item_1.id}/merchant"
+
+    merchant = JSON.parse(response.body)['data']['attributes']
+
+    expect(response).to be_successful
+    expect(merchant['id']).to eq(merchant_1.id)
+  end
 end
