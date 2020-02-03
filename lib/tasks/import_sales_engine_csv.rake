@@ -19,7 +19,11 @@ namespace :import do
   task items: :environment do
     csv = CSV.foreach("./db/sales_engine/data/items.csv", :headers => true)
     csv.each do |row|
-      Item.create!(row.to_hash)
+      x = Item.create!(row.to_hash)
+
+      # Need to write migration to store unit price as float for Spec Harness
+      # x.update(unit_price: x.unit_price.to_f/100)
+      
     end
   end
 

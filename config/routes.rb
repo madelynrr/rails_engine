@@ -11,11 +11,29 @@ Rails.application.routes.draw do
 
       namespace :invoice_items do
         get '/find', to: 'find_invoice_items#show'
+        get '/find_all', to: 'find_invoice_items#index'
+      end
+
+      namespace :invoices do
+        get '/find', to: 'find_invoices#show'
+        get '/find_all', to: 'find_invoices#index'
+      end
+
+      namespace :items do
+        get '/find', to: 'find_items#show'
+        get '/find_all', to: 'find_items#index'
       end
 
       namespace :merchants do
         get '/most_revenue', to: 'merchant_revenue#index'
         get '/revenue', to: 'merchant_revenue#show'
+        get '/find', to: 'find_merchants#show'
+        get '/find_all', to: 'find_merchants#index'
+      end
+
+      namespace :transactions do
+        get '/find', to: 'find_transactions#show'
+        get '/find_all', to: 'find_transactions#index'
       end
 
       resources :merchants, only: [:index, :show] do
