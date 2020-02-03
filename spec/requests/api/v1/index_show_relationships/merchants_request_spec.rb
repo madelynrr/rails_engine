@@ -42,4 +42,25 @@ describe "Merchants API" do
     item_3 = Item.find(items[2]['attributes']['id'])
     expect(item_3.merchant).to eq(merchant_1)
   end
+
+  it "can return collection of invoices associated with a merchant" do
+    customer = create(:customer)
+    merchant_1 = create(:merchant)
+    merchant_2 = create(:merchant)
+    invoice_1 = create(:invoice, customer_id: customer.id, merchant_id: merchant_1.id)
+    invoice_1 = create(:invoice, customer_id: customer.id, merchant_id: merchant_1.id)
+    invoice_1 = create(:invoice, customer_id: customer.id, merchant_id: merchant_1.id)
+    invoice_1 = create(:invoice, customer_id: customer.id, merchant_id: merchant_2.id)
+
+    get "/api/v1/merchants/#{merchant_1.id}/invoices"
+
+    invoices = JSON.parse(response.body)['data']
+
+    expect(response).to be_successful
+    expect(invoices.count).to eq(3)
+    expect(invoices[0]['attributes']['merchant_id']).to eq(merchant_1.id)
+    expect(invoices[1]['attributes']['merchant_id']).to eq(merchant_1.id)
+    expect(invoices[2]['attributes']['merchant_id']).to eq(merchant_1.id)
+  end
+
 end

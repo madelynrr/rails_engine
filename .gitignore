@@ -21,3 +21,7 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Ignore test_related files
+/coverage.data
+/coverage/
