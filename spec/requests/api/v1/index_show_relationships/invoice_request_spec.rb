@@ -110,4 +110,19 @@ describe "Invoice API" do
     expect(response).to be_successful
     expect(customer['id']).to eq(customer_1.id)
   end
+
+  it "returns the merchant associated with an invoice" do
+    customer = create(:customer)
+    merchant_1 = create(:merchant)
+    merchant_2 = create(:merchant)
+    invoice_1 = create(:invoice, customer_id: customer.id, merchant_id: merchant_1.id)
+    invoice_2 = create(:invoice, customer_id: customer.id, merchant_id: merchant_2.id)
+
+    get "/api/v1/invoices/#{invoice_1.id}/merchant"
+
+    merchant = JSON.parse(response.body)['data']['attributes']
+
+    expect(response).to be_successful
+    expect(merchant['id']).to eq(merchant_1.id)
+  end
 end
