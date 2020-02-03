@@ -29,16 +29,6 @@ class Api::V1::Invoices::FindInvoicesController < ApplicationController
       render json: InvoiceSerializer.new(Invoice.where(created_at: params[:created_at]))
     elsif params[:updated_at]
       render json: InvoiceSerializer.new(Invoice.where(updated_at: params[:updated_at]))
-
-
-
-
-
-
-
-
     end
-
   end
-
 end
