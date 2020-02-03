@@ -1,6 +1,5 @@
 class Api::V1::InvoiceItemsController < ApplicationController
 
-
   def index
     if params[:invoice_id]
       invoice = Invoice.find(params[:invoice_id])

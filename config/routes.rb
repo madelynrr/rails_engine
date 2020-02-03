@@ -9,6 +9,10 @@ Rails.application.routes.draw do
         get 'random', to: 'random#show'
       end
 
+      namespace :invoice_items do
+        get '/find', to: 'find_invoice_items#show'
+      end
+
       namespace :merchants do
         get '/most_revenue', to: 'merchant_revenue#index'
         get '/revenue', to: 'merchant_revenue#show'
